@@ -23,12 +23,11 @@ public class DungeonMovement : MonoBehaviour
 
     public void MoveToPoint(CellConnection point)
     {
+        Debug.Log("Move to cell: " + point.owner.name);
         cam.MoveToPoint(point.cameraPosition.transform, currentPoint.owner.transform);
         currentPoint = point;
         currentPoint.isCurrent = true;
 
         dungeonCanvas.SetupCellNavigation(currentPoint.owner);
-
-
     }  
 }

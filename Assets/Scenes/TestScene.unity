@@ -300,8 +300,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: be76e5f14cfee674cb30b491fb72b09b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionLerpTime: 0.2
-  rotationLerpTime: 0.01
+  positionLerpTime: 2
+  rotationLerpTime: 2
   pos1: {fileID: 0}
   mid1: {fileID: 0}
   pos2: {fileID: 0}
@@ -338,10 +338,10 @@ RectTransform:
   m_Father: {fileID: 439652123}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -256.27, y: 140.66}
-  m_SizeDelta: {x: 149.86, y: 143.88}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 97, y: -92}
+  m_SizeDelta: {x: 149.85999, y: 143.88}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &250338065
 MonoBehaviour:
@@ -454,7 +454,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -490,8 +490,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9dad859e0b6e554418b343f78dbb9d69, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 0}
-  navigationButtonPrefab: {fileID: 0}
+  player: {fileID: 1613850652}
+  navigationButtonPrefab: {fileID: 7465132497819197178, guid: b80df5f270b5adb40b37a184ff22b518,
+    type: 3}
+  navigationButtons: []
 --- !u!1 &653260035
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,7 +686,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cam: {fileID: 137221515}
-  dungeonCanvas: {fileID: 0}
+  dungeonCanvas: {fileID: 439652124}
 --- !u!4 &1613850653
 Transform:
   m_ObjectHideFlags: 0
@@ -880,7 +882,7 @@ PrefabInstance:
     - target: {fileID: 787343458445431228, guid: f0afcaac1cdfb4d49870d9feb511b3ff,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 787343458445431216, guid: f0afcaac1cdfb4d49870d9feb511b3ff,
         type: 3}
