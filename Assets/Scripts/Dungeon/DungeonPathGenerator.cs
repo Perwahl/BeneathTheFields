@@ -10,12 +10,12 @@ public class DungeonPathGenerator : MonoBehaviour
     public DungeonPath dungeonPath;
     public DungeonMovement player;
     public int cellCount;
+    public int branchCount;
 
     [ContextMenu("Generate")]
     public void Generate()
     {
         StartCoroutine(GenerateCoroutine());
-
     }
 
     private IEnumerator GenerateCoroutine()
@@ -24,7 +24,7 @@ public class DungeonPathGenerator : MonoBehaviour
         {
             foreach (DungeonCell c in dungeonPath.dungeonCells)
             {
-                if(c != null)Destroy(c.gameObject);
+                if (c != null) Destroy(c.gameObject);
             }
         }
 
@@ -35,31 +35,34 @@ public class DungeonPathGenerator : MonoBehaviour
 
         for (int i = 1; i < cellCount; i++)
         {
-           // AddCell(i);
+            // AddCell(i);
             yield return AddCell(i);
             if (dungeonPath.dungeonCells[i - 1].blocked)
             {
                 Generate();
                 yield break;
             }
-
         }
-        player.InitPlayer(dungeonPath);
 
+        for (int i = 0; i < branchCount; i++)
+        {
+            //find a start point for the branch
+            var startCell = dungeonPath.dungeonCells[UnityEngine.Random.Range(2, cellCount - 2)];
+        }
+
+        player.InitPlayer(dungeonPath);
     }
-        
+
 
     private IEnumerator AddCell(int i)
-    {        
+    {
         var cell = Instantiate(RandomCellPrefab());
         dungeonPath.dungeonCells[i] = cell;
 
         cell.gameObject.name = "Cell " + i;
 
         yield return cell.Connect(dungeonPath.dungeonCells[i - 1]);
-        
-        //cell.Connect(dungeonPath.dungeonCells[i - 1]);
-        
+
     }
 
     private void StartCell()

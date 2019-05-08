@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityTemplateProjects;
@@ -18,7 +19,11 @@ public class DungeonMovement : MonoBehaviour
         transform.position = path.startPoint.cameraPosition.position;
         transform.rotation = path.startPoint.cameraPosition.rotation;
         currentPoint = path.startPoint;
-        MoveToPoint(path.startPoint);
+        currentPoint.isCurrent = true;
+
+        dungeonCanvas.SetupCellNavigation(currentPoint.owner);
+
+        // MoveToPoint(path.startPoint);
     }
 
     public void MoveToPoint(CellConnection point)
@@ -28,6 +33,11 @@ public class DungeonMovement : MonoBehaviour
         currentPoint = point;
         currentPoint.isCurrent = true;
 
-        dungeonCanvas.SetupCellNavigation(currentPoint.owner);
-    }  
+        dungeonCanvas.ClearCellNavigation();
+    }
+
+    internal void MoveComplete()
+    {
+        dungeonCanvas.SetupCellNavigation(currentPoint.owner);        
+    }
 }

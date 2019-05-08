@@ -11,9 +11,7 @@ namespace UnityTemplateProjects
             //public float roll;
 
             public Quaternion rotation;
-            public float x;
-            public float y;
-            public float z;
+            public Vector3 position;
 
             public void SetFromTransform(Transform t)
             {
@@ -21,9 +19,7 @@ namespace UnityTemplateProjects
                 //yaw = t.eulerAngles.y;
                 //roll = t.eulerAngles.z;
                 rotation = t.rotation;
-                x = t.position.x;
-                y = t.position.y;
-                z = t.position.z;
+                position = t.position;
             }
 
             //public void Translate(Vector3 translation)
@@ -58,17 +54,15 @@ namespace UnityTemplateProjects
 
                 rotation = Quaternion.Slerp(rotation, target.rotation, rotationLerpPct);
 
-                x = Mathf.Lerp(x, Mathf.Lerp(midPoint.x, target.x, traveled), positionLerpPct);
-                y = Mathf.Lerp(y, Mathf.Lerp(midPoint.y+3f, target.y, traveled), positionLerpPct);
-                z = Mathf.Lerp(z, Mathf.Lerp(midPoint.z, target.z, traveled), positionLerpPct);
-               // Debug.Log(" " + traveled);
+                position = Vector3.Lerp(position, Vector3.Lerp(midPoint.position, target.position, traveled), positionLerpPct);               
+                // Debug.Log(" " + traveled);
             }
 
             public void UpdateTransform(Transform t)
             {
                 // t.eulerAngles = new Vector3(pitch, yaw, roll);
                 t.rotation = rotation;
-                t.position = new Vector3(x, y, z);
+                t.position = position;
             }
         }
 
@@ -91,34 +85,50 @@ namespace UnityTemplateProjects
         [Tooltip("Mid2")]
         public Transform mid2;
 
-        float traveled = 0f;
+        public float traveled = 1.0f;
+        public float positionLerpPct;
+        bool moveComplete = true;
+        public DungeonMovement player;
 
         void OnEnable()
         {
             m_TargetCameraState.SetFromTransform(transform);
             m_InterpolatingCameraState.SetFromTransform(transform);
             m_MidPointState.SetFromTransform(transform);
+            moveComplete = true;
+
         }
 
         public void MoveToPoint(Transform target, Transform passThrough)
         {
+            m_InterpolatingCameraState.SetFromTransform(transform);
             m_TargetCameraState.SetFromTransform(target);
             m_MidPointState.SetFromTransform(passThrough);
             traveled = 0.0f;
+            moveComplete = false;
         }
 
         void Update()
         {
-            // Framerate-independent interpolation
-            // Calculate the lerp amount, such that we get 99% of the way to our target in the specified time
-            var positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / positionLerpTime) * Time.deltaTime);
-            var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
-            traveled = traveled < 1.0f ? traveled + positionLerpPct : 1.0f;
-            // m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
-            m_InterpolatingCameraState.LerpTowardsWithMidpoint(m_TargetCameraState, m_MidPointState, positionLerpPct, rotationLerpPct, traveled);
+            if (!moveComplete && Vector3.Distance(transform.position, m_TargetCameraState.position) > 0.1f)
+            {
+                // Framerate-independent interpolation
+                // Calculate the lerp amount, such that we get 99% of the way to our target in the specified time
+                positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / positionLerpTime) * Time.deltaTime);
+                var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
+                traveled += positionLerpPct;
+                // traveled = traveled < 1.0f ? traveled + positionLerpPct : 1.0f;
+                // m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
+                m_InterpolatingCameraState.LerpTowardsWithMidpoint(m_TargetCameraState, m_MidPointState, positionLerpPct, rotationLerpPct, traveled);
 
-            m_InterpolatingCameraState.UpdateTransform(transform);
+                m_InterpolatingCameraState.UpdateTransform(transform);
+            }
+            else if (!moveComplete)
+            {
+                Debug.Log("Move complete");
+                player.MoveComplete();
+                moveComplete = true;
+            }
         }
     }
-
 }
