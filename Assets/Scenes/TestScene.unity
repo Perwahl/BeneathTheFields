@@ -580,7 +580,9 @@ MonoBehaviour:
   - {fileID: 787343458445431229, guid: f0afcaac1cdfb4d49870d9feb511b3ff, type: 3}
   - {fileID: 787343458445431229, guid: 579024beeca55fc45918259dfdf79ee0, type: 3}
   player: {fileID: 1613850652}
+  testBluePrint: {fileID: 11400000, guid: 544e4270cd26bad43bd3f6db81b9ac4d, type: 2}
   cellCount: 10
+  branchCount: 0
 --- !u!4 &1116919922
 Transform:
   m_ObjectHideFlags: 0

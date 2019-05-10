@@ -6,25 +6,23 @@ using UnityEngine;
 
 public class DungeonCell : MonoBehaviour
 {
+    public enum CellType {standard =0, startCell =1, endCell=2, branchEnd=3}
+    public CellType cellType;
+
     public CellConnection[] connectionPoints;
-    
+    public Transform[] monsterSpawnPoints;
+
     public CapsuleCollider boundsCollider;
+    public DungeonCellContent content;
     public bool start;
     public bool blocked;
 
-    private void Update()
-    {
-      //  angle = Vector3.Angle(transform.forward, connectionPoints[0].localPosition);
-
-    }
-
     public CellConnection RandomConnection()
     {
-        var freeConnections = connectionPoints.Where(c => !c.blocked && !c.connected ).ToArray();
+        var freeConnections = connectionPoints.Where(c => !c.blocked && !c.connected).ToArray();
         if (freeConnections.Length > 0)
         {
             var con = freeConnections[UnityEngine.Random.Range(0, freeConnections.Length)];
-
             return con;
         }
         else
@@ -35,24 +33,36 @@ public class DungeonCell : MonoBehaviour
         }
     }
 
+    internal void Populate(DungeonFloorBlueprint floor, CellType type)
+    {
+        cellType = type;
+        content = floor.GetCellContent(type);
+        SpawnMonsters();
+    }
+
+    private void SpawnMonsters()
+    {
+        throw new NotImplementedException();
+    }
+
     internal IEnumerator Connect(DungeonCell foreignCell)
-    {       
+    {
         var localConnectPoint = RandomConnection();
         var foreignConnectPoint = foreignCell.RandomConnection();
         if (foreignCell.blocked) yield break;
 
-        Vector3 localConnectDirection = localConnectPoint.transform.position-transform.position;
+        Vector3 localConnectDirection = localConnectPoint.transform.position - transform.position;
         Vector3 foreignConnectDirection = foreignConnectPoint.transform.position - foreignCell.transform.position;
 
         transform.position = foreignCell.transform.position;
         float angleDiff = Vector3.SignedAngle(localConnectDirection, foreignConnectDirection, transform.up);
-        
-       // Debug.Log(angleDiff);
-                
-        transform.Rotate(transform.up, angleDiff); 
-        transform.position = foreignConnectPoint.transform.position + (foreignConnectDirection.normalized*localConnectDirection.magnitude);
-        var heightDiff = foreignConnectPoint.HeightDiff()-localConnectPoint.HeightDiff();
-        transform.position = new Vector3(transform.position.x, transform.position.y+heightDiff, transform.position.z);
+
+        // Debug.Log(angleDiff);
+
+        transform.Rotate(transform.up, angleDiff);
+        transform.position = foreignConnectPoint.transform.position + (foreignConnectDirection.normalized * localConnectDirection.magnitude);
+        var heightDiff = foreignConnectPoint.HeightDiff() - localConnectPoint.HeightDiff();
+        transform.position = new Vector3(transform.position.x, transform.position.y + heightDiff, transform.position.z);
 
         transform.Rotate(transform.up, 180f);
 
@@ -68,10 +78,10 @@ public class DungeonCell : MonoBehaviour
             foreignConnectPoint.connected = true;
             foreignConnectPoint.connectedTo = localConnectPoint;
         }
-         else
+        else
         {
             foreignConnectPoint.gameObject.SetActive(true);
-            foreignConnectPoint.blocked = true;            
+            foreignConnectPoint.blocked = true;
             foreignConnectPoint.GetComponent<Renderer>().material.SetColor("_BaseColor", Color.red);
             yield return Connect(foreignCell);
         }
@@ -81,23 +91,13 @@ public class DungeonCell : MonoBehaviour
     {
         Collider[] hitColliders = Physics.OverlapSphere(transform.position, 6f);
 
-        if(hitColliders.Length > 2)
+        if (hitColliders.Length > 2)
         {
             Debug.Log(gameObject.name + " not valid");
-
-            foreach(Collider c in hitColliders)
-            {
-                Debug.Log(c.gameObject.name);
-            }
+                        
             return false;
         }
 
-        //foreach(Collider c in hitColliders)
-        //{
-        //    Debug.Log(c.gameObject.name);
-        //}
-
-        
         return true;
     }
 }
