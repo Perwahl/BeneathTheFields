@@ -12,7 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1527321d2bd0e564d94c78de63fab52d, type: 3}
   m_Name: 2-3 Minor Shadows
   m_EditorClassIdentifier: 
-  types:
+  type1:
   - {fileID: 11400000, guid: 6fdb654b0d49ad141b2dbc92787a2c85, type: 2}
-  minCount: 2
-  maxCount: 3
+  takeType1: 2
+  type2: []
+  takeType2: 0
+  type3: []
+  takeType3: 0
