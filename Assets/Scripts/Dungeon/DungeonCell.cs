@@ -36,13 +36,22 @@ public class DungeonCell : MonoBehaviour
     internal void Populate(DungeonFloorBlueprint floor, CellType type)
     {
         cellType = type;
-        content = floor.GetCellContent(type);
-        SpawnMonsters();
+        content = floor.GetCellContent(type);        
     }
 
-    private void SpawnMonsters()
+    public void SpawnMonsters()
     {
-        throw new NotImplementedException();
+        List<Transform> freeSpawnPoints = new List<Transform>();
+        content.monsters = new List<Monster>();
+        freeSpawnPoints.AddRange(monsterSpawnPoints);
+
+        foreach(MonsterBlueprint monster in content.monsterBlueprints)
+        {
+            var randomSpawn = freeSpawnPoints[UnityEngine.Random.Range(0, freeSpawnPoints.Count)];
+            freeSpawnPoints.Remove(randomSpawn);
+            var m = Instantiate(monster.monsterPrefab, randomSpawn);
+            content.monsters.Add(m);
+        }
     }
 
     internal IEnumerator Connect(DungeonCell foreignCell)

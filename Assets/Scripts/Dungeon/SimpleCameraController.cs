@@ -6,30 +6,14 @@ namespace UnityTemplateProjects
     {
         class CameraState
         {
-            //public float yaw;
-            //public float pitch;
-            //public float roll;
-
             public Quaternion rotation;
             public Vector3 position;
 
             public void SetFromTransform(Transform t)
             {
-                //pitch = t.eulerAngles.x;
-                //yaw = t.eulerAngles.y;
-                //roll = t.eulerAngles.z;
                 rotation = t.rotation;
                 position = t.position;
             }
-
-            //public void Translate(Vector3 translation)
-            //{
-            //    Vector3 rotatedTranslation = Quaternion.Euler(pitch, yaw, roll) * translation;
-
-            //    x += rotatedTranslation.x;
-            //    y += rotatedTranslation.y;
-            //    z += rotatedTranslation.z;
-            //}
 
             //public void LerpTowards(CameraState target, float positionLerpPct, float rotationLerpPct)
             //{
@@ -44,23 +28,13 @@ namespace UnityTemplateProjects
 
             public void LerpTowardsWithMidpoint(CameraState target, CameraState midPoint, float positionLerpPct, float rotationLerpPct, float traveled)
             {
-                //yaw = Mathf.Lerp(yaw, Mathf.Lerp(midPoint.yaw, target.yaw, traveled), rotationLerpPct);
-                //pitch = Mathf.Lerp(pitch, Mathf.Lerp(midPoint.pitch, target.pitch, traveled), rotationLerpPct);
-                //roll = Mathf.Lerp(roll, Mathf.Lerp(midPoint.roll, target.roll, traveled), rotationLerpPct);
-
-                //yaw = Mathf.Lerp(yaw, target.yaw, rotationLerpPct);
-                //pitch = Mathf.Lerp(pitch, target.pitch, rotationLerpPct);
-                //roll = Mathf.Lerp(roll, target.roll, rotationLerpPct);
-
                 rotation = Quaternion.Slerp(rotation, target.rotation, rotationLerpPct);
 
-                position = Vector3.Lerp(position, Vector3.Lerp(midPoint.position, target.position, traveled), positionLerpPct);               
-                // Debug.Log(" " + traveled);
+                position = Vector3.Lerp(position, Vector3.Lerp(midPoint.position, target.position, traveled), positionLerpPct);
             }
 
             public void UpdateTransform(Transform t)
             {
-                // t.eulerAngles = new Vector3(pitch, yaw, roll);
                 t.rotation = rotation;
                 t.position = position;
             }
@@ -96,7 +70,6 @@ namespace UnityTemplateProjects
             m_InterpolatingCameraState.SetFromTransform(transform);
             m_MidPointState.SetFromTransform(transform);
             moveComplete = true;
-
         }
 
         public void MoveToPoint(Transform target, Transform passThrough)
@@ -117,8 +90,7 @@ namespace UnityTemplateProjects
                 positionLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / positionLerpTime) * Time.deltaTime);
                 var rotationLerpPct = 1f - Mathf.Exp((Mathf.Log(1f - 0.99f) / rotationLerpTime) * Time.deltaTime);
                 traveled += positionLerpPct;
-                // traveled = traveled < 1.0f ? traveled + positionLerpPct : 1.0f;
-                // m_InterpolatingCameraState.LerpTowards(m_TargetCameraState, positionLerpPct, rotationLerpPct);
+               
                 m_InterpolatingCameraState.LerpTowardsWithMidpoint(m_TargetCameraState, m_MidPointState, positionLerpPct, rotationLerpPct, traveled);
 
                 m_InterpolatingCameraState.UpdateTransform(transform);

@@ -12,3 +12,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfcc168fecfe07041924e013b1b21e09, type: 3}
   m_Name: MinorShadow
   m_EditorClassIdentifier: 
+  monsterPrefab: {fileID: 8415659804753801322, guid: 1d8f310f2a7cf8a4caf14d8312f88046,
+    type: 3}

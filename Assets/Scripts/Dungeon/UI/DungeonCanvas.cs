@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class DungeonCanvas : MonoBehaviour
 {
-    public Canvas canvas;
+    public RectTransform navRect;
     public DungeonMovement player;
     public Button navigationButtonPrefab;
 
@@ -52,21 +52,17 @@ public class DungeonCanvas : MonoBehaviour
     {
         var butt = Instantiate(navigationButtonPrefab, this.transform);
         butt.onClick.AddListener(() => { MoveToPoint(connection.connectedTo); });
-        MoveToWorldPoint(connection.transform.position, butt.GetComponent<RectTransform>());
+        MoveToWorldPoint(connection.heightOffset.transform.position, butt.GetComponent<RectTransform>());
         navigationButtons.Add(butt);
     }
-
+       
     public void MoveToWorldPoint(Vector3 objectTransformPosition, RectTransform button)
     {
-        var canvasRect = canvas.GetComponent<RectTransform>();
-        var uiOffset = new Vector2((float)canvasRect.rect.height / 2f, (float)canvasRect.rect.width / 2f);
+        var pos = cam.WorldToViewportPoint(objectTransformPosition);
 
-        // Get the position on the canvas
-        Vector2 ViewportPosition = cam.WorldToViewportPoint(objectTransformPosition);
-        Vector2 proportionalPosition = new Vector2(ViewportPosition.x * canvasRect.rect.height, ViewportPosition.y * canvasRect.rect.width);
-        Debug.Log("setting button postion: " + proportionalPosition);
-        // Set the position and remove the screen offset
-        button.localPosition = proportionalPosition - uiOffset;
-       // button.anchoredPosition = ViewportPosition;
+        var x = Mathf.Clamp(pos.x, 0.0f, 1.0f);
+        var y = Mathf.Clamp(pos.y, 0.0f, 1.0f);
+
+        button.anchoredPosition = new Vector2(navRect.rect.width * x, navRect.rect.height * y);
     }
 }

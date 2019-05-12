@@ -6,5 +6,7 @@ using UnityEngine;
 
 public class DungeonCellContent
 {
-    public List<MonsterBlueprint> monsters;
+    public List<MonsterBlueprint> monsterBlueprints;
+
+    public List<Monster> monsters;
 }
