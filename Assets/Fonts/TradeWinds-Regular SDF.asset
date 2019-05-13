@@ -94,7 +94,7 @@ Material:
     - _BumpOutline: 0
     - _ColorMask: 15
     - _Diffuse: 0.5
-    - _FaceDilate: 0.275
+    - _FaceDilate: 0.63
     - _FaceShininess: 0
     - _FaceUVSpeedX: 0
     - _FaceUVSpeedY: 0
@@ -113,12 +113,12 @@ Material:
     - _OutlineSoftness: 0
     - _OutlineUVSpeedX: 0
     - _OutlineUVSpeedY: 0
-    - _OutlineWidth: 0.41
+    - _OutlineWidth: 0.668
     - _PerspectiveFilter: 0.875
     - _Reflectivity: 10
-    - _ScaleRatioA: 0.8333333
+    - _ScaleRatioA: 0.56097835
     - _ScaleRatioB: 0.44791666
-    - _ScaleRatioC: 0.44791666
+    - _ScaleRatioC: 0.15208332
     - _ScaleX: 1
     - _ScaleY: 1
     - _ShaderFlags: 0

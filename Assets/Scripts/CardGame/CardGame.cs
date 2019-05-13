@@ -44,7 +44,7 @@ public class CardGame : MonoBehaviour
         PlayerDeckManager = playerDeckManager;
         PlayerHand = playerHand;
         PlayerDiscardManager = playerDiscardManager;
-        PlayerHealthGlobe = playerHealthGlobe;
+       // PlayerHealthGlobe = playerHealthGlobe;
     }
 
     private void SetupNewGame()
