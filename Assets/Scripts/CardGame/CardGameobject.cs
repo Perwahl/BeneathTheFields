@@ -60,8 +60,8 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
         if (zoomedIn && !beingDragged && card.Type != Card.CardType.dungeon)
         {
-            finalTargetPosition = targetPosition + transform.up;
-            finalTargetRotation = Quaternion.identity;
+            finalTargetPosition = targetPosition + transform.up+(transform.forward*-1f);
+            finalTargetRotation = CardGame.CardGameRef.transform.rotation;
         }
 
         distance = Vector3.Distance(transform.position, finalTargetPosition);
@@ -216,7 +216,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         targetPosition = transform.position;
         startSize = transform.localScale.x;
         SetCardSizeTarget(startSize);
-        startRotation = Quaternion.identity;
+        startRotation = CardGame.CardGameRef.transform.rotation;
         targetRotation = startRotation;
         sortGroup.sortingOrder = 1;
         cardName.text = card.CardName;
@@ -235,7 +235,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnDrag(PointerEventData eventData)
     {
-        //SetCardPositionTarget(Camera.main.ScreenToWorldPoint(eventData.position));
+        //SetCardPositionTarget(CardGame.PlayerCam.ScreenToWorldPoint(eventData.position));
         SetCardPositionTarget(GetWorldPositionOnPlane(eventData.position, 0f));
         dragDistance = Vector2.Distance(transform.position, dragStartPoint);
 
@@ -269,7 +269,8 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
     {
         Ray ray = CardGame.PlayerCam.ScreenPointToRay(screenPosition);
-        Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, z));
+       // Plane xy = new Plane(CardGame.CardGameRef.transform.forward, new Vector3(0, 0, z));
+        Plane xy = new Plane(CardGame.CardGameRef.transform.forward,transform.position);
         float distance;
         xy.Raycast(ray, out distance);
         return ray.GetPoint(distance);
@@ -315,13 +316,13 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         if (front)
         {
-            SetCardSizeTarget(startSize * 1.5f);
+           // SetCardSizeTarget(startSize * 1.5f);
             sortGroup.sortingOrder = 20;
             zoomedIn = true;
         }
         else
         {
-            SetCardSizeTarget(targetSize = startSize);
+           // SetCardSizeTarget(targetSize = startSize);
             sortGroup.sortingOrder = 1;
             zoomedIn = false;
         }

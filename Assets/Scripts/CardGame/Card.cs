@@ -28,7 +28,7 @@ public class Card : ScriptableObject
             if (effect.NeedsTarget)
             {
                 return true;
-            }           
+            }
         }
         return false;
     }
