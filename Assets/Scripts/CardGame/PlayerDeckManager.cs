@@ -20,7 +20,7 @@ public class PlayerDeckManager : MonoBehaviour
         }
         var cardToDraw = gameState.PlayerDeck[gameState.PlayerDeck.Count - 1];
         gameState.PlayerDeck.Remove(cardToDraw);
-        cardToDraw.transform.SetParent(null);
+        cardToDraw.transform.SetParent(CardGame.CardGameRef.transform);
         CardGame.PlayerHand.AddCard(cardToDraw);
         animQueue.EnqueueAction(CardLeavesHand());
     }
@@ -110,7 +110,8 @@ public class PlayerDeckManager : MonoBehaviour
         foreach (Card card in deck.Cards)
         {
             var cardObject = Instantiate(cardPrefab, transform);
-            cardObject.transform.localPosition = deckPositions[cardsInDeck];
+          //  cardObject.transform.position = deckPositions[cardsInDeck];
+            cardObject.transform.position = transform.position;
             gameState.PlayerDeck.Add(cardObject);
             cardObject.InitCardObject(card);
             // cardObject.SetSortOrder(cardsInDeck * -1);

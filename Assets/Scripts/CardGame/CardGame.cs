@@ -25,6 +25,11 @@ public class CardGame : MonoBehaviour
     [SerializeField] private GameState gameState;
     [SerializeField] private CoroutineQueue animationQueue;
 
+    [SerializeField] private Camera playerCam;
+    public static Camera PlayerCam;        
+    public static CardGame CardGameRef;
+
+
     internal static void HighlightMonsters(bool v)
     {
         throw new NotImplementedException();
@@ -44,6 +49,8 @@ public class CardGame : MonoBehaviour
         PlayerDeckManager = playerDeckManager;
         PlayerHand = playerHand;
         PlayerDiscardManager = playerDiscardManager;
+        PlayerCam = playerCam;
+        CardGameRef = this;
        // PlayerHealthGlobe = playerHealthGlobe;
     }
 

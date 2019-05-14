@@ -15,7 +15,7 @@ public class PlayerHand : MonoBehaviour
     {
         gameState.PlayerHand.Add(card);        
         animQueue.EnqueueAction(MoveCardToHandAnimation(card));
-        animQueue.EnqueueWait(0.3f);
+        animQueue.EnqueueWait(0.3f);        
     }
 
     void Update()
@@ -32,7 +32,7 @@ public class PlayerHand : MonoBehaviour
 
     public IEnumerator MoveCardToHandAnimation(CardGameobject card)
     {
-        cardsInHand.Add(card);       
+        cardsInHand.Add(card);
         card.FX.FlipCard();
         card.Interactable(true);
         card.SetSortOrder(20);

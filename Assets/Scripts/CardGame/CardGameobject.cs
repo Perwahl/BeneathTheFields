@@ -16,7 +16,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     private Quaternion startRotation;
     private Quaternion targetRotation;
-    private Vector2 targetPosition;
+    private Vector3 targetPosition;
     private float startSize;
     private float targetSize;
 
@@ -26,7 +26,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     [SerializeField] private float distance;
 
     [SerializeField] private bool draggable;
-    [SerializeField] private Rigidbody2D rb;
+    [SerializeField] private Rigidbody rb;
 
     private Vector2 dragStartPoint;
     private static bool beingDragged;
@@ -39,7 +39,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     [SerializeField] private TargetingCross targetCross;
     [SerializeField] private SpriteRenderer cardImage;
     [SerializeField] private GameObject cardBack;
-    [SerializeField] private Collider2D col;
+    [SerializeField] private BoxCollider col;
 
     private bool isPlayable = false;
     private bool interactable = false;
@@ -55,22 +55,22 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
         }
 
         var sleepcounter = 0;
-        Vector2 finalTargetPosition = targetPosition;
+        Vector3 finalTargetPosition = targetPosition;
         Quaternion finalTargetRotation = targetRotation;
 
         if (zoomedIn && !beingDragged && card.Type != Card.CardType.dungeon)
         {
-            finalTargetPosition = targetPosition + Vector2.up;
+            finalTargetPosition = targetPosition + transform.up;
             finalTargetRotation = Quaternion.identity;
         }
 
-        distance = Vector2.Distance(transform.position, finalTargetPosition);
+        distance = Vector3.Distance(transform.position, finalTargetPosition);
 
         if (!beingDragged)
         {
-            var force = finalTargetPosition - new Vector2(transform.position.x, transform.position.y);
+            var force = finalTargetPosition - new Vector3(transform.position.x, transform.position.y, transform.position.z);
 
-            rb.AddForce(force * 5.0f);
+            rb.AddForce(force * 5.0f);          
         }
         else if (beingDragged)
         {
@@ -91,7 +91,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
             sleepcounter++;
         }
 
-        if (Quaternion.Angle(transform.rotation, finalTargetRotation) > 0.1)
+        if (Quaternion.Angle(transform.rotation, finalTargetRotation) > 0.1f)
         {
             transform.rotation = Quaternion.RotateTowards(transform.rotation, finalTargetRotation, 1.0f);
         }
@@ -193,11 +193,11 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     internal void SetCardRotationTarget(Quaternion v)
     {
-        targetRotation = v;
+        targetRotation = v;        
         sleeping = false;
     }
 
-    public void SetCardPositionTarget(Vector2 pos)
+    public void SetCardPositionTarget(Vector3 pos)
     {
         targetPosition = pos;
         sleeping = false;
@@ -211,7 +211,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     internal void InitCardObject(Card cardToDraw)
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
         card = cardToDraw;
         targetPosition = transform.position;
         startSize = transform.localScale.x;
@@ -268,7 +268,7 @@ public class CardGameobject : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public Vector3 GetWorldPositionOnPlane(Vector3 screenPosition, float z)
     {
-        Ray ray = Camera.main.ScreenPointToRay(screenPosition);
+        Ray ray = CardGame.PlayerCam.ScreenPointToRay(screenPosition);
         Plane xy = new Plane(Vector3.forward, new Vector3(0, 0, z));
         float distance;
         xy.Raycast(ray, out distance);

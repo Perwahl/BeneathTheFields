@@ -164,7 +164,8 @@ public class CardFX : MonoBehaviour
     [ContextMenu("Flip Card")]
     public void FlipCard()
     {
-        StartCoroutine(Flip());
+        
+        //StartCoroutine(Flip());
     }
 
     private IEnumerator Flip()
@@ -176,14 +177,12 @@ public class CardFX : MonoBehaviour
         {
             cardTransform.localRotation = Quaternion.Lerp(s, t, i);
             yield return null;
-
         }
 
         faceUp = !faceUp;
         cardBack.gameObject.SetActive(!faceUp);
         t = Quaternion.identity * Quaternion.AngleAxis(-90, Vector3.up);
         cardTransform.localRotation = t;
-
 
         for (float i = 0.0f; i <= 1f; i += Time.deltaTime * flipSpeed)
         {
@@ -192,5 +191,4 @@ public class CardFX : MonoBehaviour
         }
         cardTransform.localRotation = Quaternion.identity;
     }
-
 }

@@ -48,7 +48,8 @@ public class HandPositions : MonoBehaviour
 
             for (int i = 0; i < positionCount; i++)
             {
-                points[i].rotation = Quaternion.identity;
+                //  points[i].rotation = Quaternion.identity;
+                  points[i].rotation = transform.rotation;
                 points[i].position = vertexCurve.GetPoint(t);
                 var vector = vertexCurve.GetDirection(t);
                 var angle = Vector3.Angle(points[i].right, vector);
@@ -58,7 +59,8 @@ public class HandPositions : MonoBehaviour
                     angle *= -1;
                 }
 
-                points[i].Rotate(Vector3.forward, angle);
+                points[i].Rotate(points[i].transform.forward, angle);
+              //  points[i].Rotate(Vector3.forward, angle);
 
                 t += offset;
             }
