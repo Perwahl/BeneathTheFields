@@ -34,13 +34,18 @@ public class DungeonMovement : MonoBehaviour
         currentPoint.isCurrent = true;
 
         dungeonCanvas.ClearCellNavigation();
+        point.owner.SpawnMonsters(cam);
+
+
     }
 
     internal void MoveComplete()
     {
         if(currentPoint.owner.content.monsterBlueprints.Count > 0)
         {
-            currentPoint.owner.SpawnMonsters();
+            //currentPoint.owner.SpawnMonsters(cam);
+            dungeonCanvas.SetupCellNavigation(currentPoint.owner);
+
         }
         else
         {

@@ -8,27 +8,31 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: Dungeon_Material_01
-  m_Shader: {fileID: 4800000, guid: cffc2ccb225fda94ca1eb166312b9f49, type: 3}
-  m_ShaderKeywords: AO_ON BACKSOLID BOTTOMSOLID COLORCORRECTION_ON FRONTGRADIENT HEIGHT_FOG
-    LEFTSOLID RIGHTSOLID TOPSOLID UNITY_FOG USERIM _AOUV_UV0 _COLORCORRECTIONENABLE_ON
+  m_Shader: {fileID: -6465566751694194690, guid: 40c882c4dd6dda74ea4e9c553473a701,
+    type: 3}
+  m_ShaderKeywords: AO_ON BACKSOLID BOTTOMSOLID COLORCORRECTION_ON FRONTGRADIENT
+    HEIGHT_FOG LEFTSOLID RIGHTSOLID TOPSOLID UNITY_FOG USERIM _AOUV_UV0 _COLORCORRECTIONENABLE_ON
     _EMISSION _GRADIENTSPACE_WORLD_SPACE _GRADSETTINGS_B_USE_GLOBAL _GRADSETTINGS_D_USE_GLOBAL
     _GRADSETTINGS_F_USE_GLOBAL _GRADSETTINGS_L_USE_GLOBAL _GRADSETTINGS_R_USE_GLOBAL
     _GRADSETTINGS_T_USE_GLOBAL _HFOGENABLE_ON _LMAPBLENDINGMODE_ADD _METALLICSPECGLOSSMAP
-    _MODE_OPAQUE _OTHERSETTINGS_ON _SHADING_B_SOLID_COLOR _SHADING_D_SOLID_COLOR _SHADING_F_SOLIDCOLOR
-    _SHADING_L_SOLID_COLOR _SHADING_R_SOLID_COLOR _SHADING_T_SOLID_COLOR _SHOWAO_ON
-    _SHOWBACK_ON _SHOWBOTTOM_ON _SHOWCOLORCORRECTION_ON _SHOWCUSTOMSHADING_ON _SHOWFOG_ON
-    _SHOWFRONT_ON _SHOWLEFT_ON _SHOWLMAP_ON _SHOWRIGHT_ON _SHOWTEXTURE_ON _SHOWTOP_ON
-    _UNITYFOGENABLE_ON
+    _MODE_OPAQUE _OTHERSETTINGS_ON _SHADING_B_SOLID_COLOR _SHADING_D_SOLID_COLOR
+    _SHADING_F_SOLIDCOLOR _SHADING_L_SOLID_COLOR _SHADING_R_SOLID_COLOR _SHADING_T_SOLID_COLOR
+    _SHOWAO_ON _SHOWBACK_ON _SHOWBOTTOM_ON _SHOWCOLORCORRECTION_ON _SHOWCUSTOMSHADING_ON
+    _SHOWFOG_ON _SHOWFRONT_ON _SHOWLEFT_ON _SHOWLMAP_ON _SHOWRIGHT_ON _SHOWTEXTURE_ON
+    _SHOWTOP_ON _UNITYFOGENABLE_ON
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_43ECD98B:
+        m_Texture: {fileID: 2800000, guid: a2e781ab9b9e5d748b74706dcbbab973, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _AOTexture:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
@@ -38,6 +42,10 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _CustomFunction_2C9338C6_DepthNormals_5:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
@@ -81,7 +89,21 @@ Material:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_6464E179_Out_0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _Texture2DAsset_7AFA4876_Out_0:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_22A00427: 1.86
+    - Vector1_84AAA6AF: 0
+    - Vector1_865C3CBD: 0.54
+    - Vector1_9C03686A: 1
+    - Vector1_A94E4561: 4.87
+    - Vector1_D2CBD776: 0
     - _AOEnable: 0
     - _AOPower: 0
     - _AOuv: 0
@@ -172,6 +194,10 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_552F4944: {r: 1, g: 1, b: 1, a: 0}
+    - Color_B6075D7F: {r: 1, g: 1, b: 1, a: 0}
+    - Color_E89B8098: {r: 0, g: 0, b: 0, a: 1}
+    - Vector3_4868EBD7: {r: 0, g: 0, b: 0, a: 0}
     - _AOColor: {r: 0, g: 0, b: 0, a: 1}
     - _AmbientColor: {r: 0, g: 0, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}

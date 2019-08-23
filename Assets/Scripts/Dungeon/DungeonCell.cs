@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityTemplateProjects;
 
 public class DungeonCell : MonoBehaviour
 {
@@ -39,7 +40,7 @@ public class DungeonCell : MonoBehaviour
         content = floor.GetCellContent(type);        
     }
 
-    public void SpawnMonsters()
+    public void SpawnMonsters(SimpleCameraController player)
     {
         List<Transform> freeSpawnPoints = new List<Transform>();
         content.monsters = new List<Monster>();
@@ -51,6 +52,7 @@ public class DungeonCell : MonoBehaviour
             freeSpawnPoints.Remove(randomSpawn);
             var m = Instantiate(monster.monsterPrefab, randomSpawn);
             content.monsters.Add(m);
+            m.player = player.transform;
         }
     }
 

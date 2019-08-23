@@ -5,16 +5,26 @@ using UnityEngine;
 
 public class Monster : MonoBehaviour
 {
+    public Transform player;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        LookaAtPlayer();
+    }
+
+    private void LookaAtPlayer()
+    {
+        if (player != null)
+        {
+            transform.LookAt(player);
+        }
     }
 
     internal void TakeDamage(int damageValue, HitEffect hitEffect)
